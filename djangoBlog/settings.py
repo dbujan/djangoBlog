@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_'
 # ADDED FOR HEROKU
+import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -134,7 +135,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # ADDED FOR HEROKU
-import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
