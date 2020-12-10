@@ -38,9 +38,9 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 # ADDED FOR HEROKU
 # enabling HTTP Strict Transport Security
 #SECURE_HSTS_SECONDS = 60
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
 # Application definition
 
