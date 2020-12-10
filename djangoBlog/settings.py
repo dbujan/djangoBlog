@@ -55,8 +55,8 @@ INSTALLED_APPS = [
 
 # ADDED FOR HEROKU
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware', # ADDED FOR HEROKU
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # ADDED FOR HEROKU
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,4 +136,11 @@ STATIC_URL = '/static/'
 # ADDED FOR HEROKU
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ADDED FOR HEROKU
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
