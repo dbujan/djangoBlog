@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block titulo %}Django Blog{% endblock %}
+
+{% block javascript %}
+    {% load static %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/effects.js' %}"></script>
+    <script src="{% static 'js/jquery.qtip-1.0.0-rc3.min.js' %}"></script>
+    <script src="{% static 'js/ajax.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="posts">
+    <h1 class="content-subhead">Listado de posts</h1>
+	{% if lista_posts %}
+		{% for p in lista_posts %}
+			<section class="post">
+            	<header class="post-header">
+                	<h2 class="post-title"><a href="{% url 'detail' p.id %}">{{ p.title }}</a></h2>
+                	<p class="post-meta">{{ p.date }}</p>
+            	</header>
+            	<div class="post-description">
+					<p>{{ p.body|truncatewords:30 }}</p>
+            	</div>
+        	</section>
+    	{% endfor %}
+	{% else %}
+		<section class="post">
+            <header class="post-header">
+	            <h2 class="post-title">No hay posts creados.</h2>
+				<p class="post-meta">
+					No hay posts creados.
+            	</p>
+            </header>
+			<div class="post-description">
+            	<p>No hay posts creados.</p>
+            </div>
+        </section>
+	{% endif %}
+</div>
+{% endblock %}

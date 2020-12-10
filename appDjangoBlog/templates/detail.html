@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block titulo %}Detalle del post{% endblock %}
+
+{% block contenido %}
+<div class="posts">
+    <h1 class="content-subhead">Datos del post</h1>
+    {% if post %}
+        <section class="post">
+            {% if post.image %}
+                {% load static %}
+                
+                <img alt="{{ post.image.name }}" class="post-avatar" src="{% static post.image.name %}" />
+               
+            {% endif %}
+            <header class="post-header">
+                <h2 class="post-title">{{ post.title }}</h2>
+                <p class="post-meta">{{ post.date }}</p>
+            </header>
+            <div class="post-description">
+                <p>{{ post.body }}</p>
+            </div>
+        </section>
+    {% else %}
+        <section class="post">
+            <header class="post-header">
+                <h2 class="post-title">No existe este post.</h2>
+                <p class="post-meta">No existe este post.</p>
+            </header>
+            <div class="post-description">
+                <p>No existe este post.</p>
+            </div>
+        </section>
+    {% endif %}
+</div>
+{% endblock %}
