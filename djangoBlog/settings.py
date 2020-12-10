@@ -15,18 +15,31 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+# python manage.py check --deploy
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_'
+#SECRET_KEY = '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_'
+# ADDED FOR HEROKU
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+# ADDED FOR HEROKU
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) ) 
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+# ADDED FOR HEROKU
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com'] 
 
+# ADDED FOR HEROKU
+# enabling HTTP Strict Transport Security
+#SECURE_HSTS_SECONDS = 60
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -40,7 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# ADDED FOR HEROKU
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware', # ADDED FOR HEROKU
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangoBlog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -80,7 +94,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -119,3 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# ADDED FOR HEROKU
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
