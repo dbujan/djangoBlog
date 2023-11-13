@@ -21,28 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # python manage.py check --deploy
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_'
-# ADDED FOR HEROKU
+SECRET_KEY = '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_'
+
 import os
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '75k6qy5a1h$9k^m8nnk8=%_tyi*^)-iu(^944+q1m2vyw%4jx_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-# ADDED FOR HEROKU
-DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) ) 
+DEBUG = True
 
 #ALLOWED_HOSTS = []
 # ADDED FOR HEROKU
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com'] 
 
-# ADDED FOR HEROKU
-#SECURE_SSL_REDIRECT = True
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
-#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#SECURE_HSTS_SECONDS = 86400
-#SECURE_CONTENT_TYPE_NOSNIFF = True
-#SECURE_BROWSER_XSS_FILTER = True
 
 # Application definition
 
@@ -59,7 +48,6 @@ INSTALLED_APPS = [
 # ADDED FOR HEROKU
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # ADDED FOR HEROKU
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -135,14 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# ADDED FOR HEROKU
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# ADDED FOR HEROKU
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)

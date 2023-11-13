@@ -4,5 +4,4 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('post/<int:post_id>/', views.detail, name='detail'),
-    path('postAjax/<int:post_id>/', views.ajax, name='ajax'),
 ]
